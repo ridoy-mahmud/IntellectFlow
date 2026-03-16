@@ -1,0 +1,444 @@
+Build a complete, production-ready web application called "NEXUS AI" — an Autonomous Multi-Agent Orchestration Platform where multiple specialized AI agents (Researcher, Writer, Coder, Analyst, Designer, QA Tester) collaborate autonomously to complete complex projects. The app must be visually stunning, fully functional, and feel like a futuristic mission control center for AI agents.
+
+=== TECH STACK ===
+- Frontend: Next.js 14+ with App Router, TypeScript, Tailwind CSS, Framer Motion for animations
+- UI Components: shadcn/ui component library
+- State Management: Zustand for global state
+- Real-time: WebSocket connections for live agent activity streaming
+- Backend API Routes: Next.js API routes that connect to a Python/FastAPI backend
+- Database: Supabase (PostgreSQL) for persistence
+- Authentication: Supabase Auth (email/password + Google OAuth)
+- AI Integration: OpenAI API (GPT-4) for agent intelligence, with support for multiple LLM providers
+- Charts/Visualization: Recharts for analytics, ReactFlow for workflow graph visualization
+
+=== COLOR THEME & DESIGN SYSTEM ===
+- Primary background: #0A0A0F (deep space black)
+- Secondary background: #111827 (dark gunmetal)
+- Card backgrounds: rgba(17, 24, 39, 0.8) with backdrop-blur-xl (glassmorphism)
+- Primary accent: #6366F1 (indigo/electric purple)
+- Secondary accent: #06B6D4 (cyan/teal)  
+- Success: #10B981 (emerald green)
+- Warning: #F59E0B (amber)
+- Error: #EF4444 (red)
+- Text primary: #F9FAFB (near white)
+- Text secondary: #9CA3AF (muted gray)
+- Borders: rgba(99, 102, 241, 0.2) (subtle indigo glow)
+- All cards must have subtle border glow effects using box-shadow with accent colors
+- Use gradient text for headings: linear-gradient(135deg, #6366F1, #06B6D4)
+- Animated particle background on the landing page using canvas
+- Subtle grid pattern overlay on dashboard backgrounds
+- All transitions must be smooth (300ms ease-in-out)
+- Loading states use skeleton animations with shimmer effect
+
+=== TYPOGRAPHY ===
+- Font family: Inter for body, JetBrains Mono for code/technical elements
+- Heading sizes: H1: 3rem bold, H2: 2rem semibold, H3: 1.5rem medium
+- All text must have proper contrast ratios for accessibility
+
+=== PAGE STRUCTURE & ROUTES ===
+
+--- PAGE 1: LANDING PAGE (/) ---
+A cinematic, scroll-animated landing page with these sections:
+
+HERO SECTION:
+- Full viewport height
+- Animated particle/constellation background (use HTML canvas with small connected dots that move slowly)
+- Large gradient heading: "The Future of AI Collaboration" with typewriter animation effect
+- Subheading: "Deploy autonomous AI agent teams that research, write, code, and deliver complete projects — while you sleep."
+- Two CTA buttons: "Launch Mission Control" (primary, filled with glow) and "Watch Demo" (outline with hover glow)
+- Below buttons: A 3D perspective mockup of the dashboard (use CSS transforms with perspective and rotateX)
+- Floating agent avatars orbiting around the mockup with subtle glow trails
+
+HOW IT WORKS SECTION:
+- Section title: "How NEXUS Works" with gradient text
+- 4-step horizontal timeline with animated connecting lines:
+  Step 1: "Define Your Mission" — Icon: target — "Describe your project goal in natural language. NEXUS understands complex requirements."
+  Step 2: "AI Assembles the Crew" — Icon: users — "NEXUS automatically selects and configures the optimal team of specialized AI agents."
+  Step 3: "Agents Collaborate" — Icon: network — "Agents communicate, delegate, review each other's work, and iterate autonomously."
+  Step 4: "Deliver Results" — Icon: rocket — "Receive polished deliverables: research reports, written content, working code, and more."
+- Each step card should animate in on scroll (fade up + slide) using Intersection Observer
+
+AGENT SHOWCASE SECTION:
+- Section title: "Meet Your AI Crew"
+- 6 agent cards in a responsive grid (3 columns desktop, 2 tablet, 1 mobile):
+  1. RESEARCHER AGENT — Avatar: magnifying glass brain icon, Color: #6366F1 — "Searches the web, reads documents, gathers data, and compiles comprehensive research briefs."
+  2. WRITER AGENT — Avatar: pen sparkle icon, Color: #8B5CF6 — "Crafts blog posts, reports, documentation, marketing copy, and creative content."
+  3. CODER AGENT — Avatar: code terminal icon, Color: #06B6D4 — "Writes clean, tested code in Python, JavaScript, TypeScript, and more."
+  4. ANALYST AGENT — Avatar: chart bar icon, Color: #10B981 — "Performs data analysis, creates visualizations, and extracts actionable insights."
+  5. DESIGNER AGENT — Avatar: palette icon, Color: #F59E0B — "Generates UI mockups, design suggestions, and creative visual concepts."
+  6. QA TESTER AGENT — Avatar: shield check icon, Color: #EF4444 — "Reviews all outputs for quality, accuracy, consistency, and completeness."
+- Each card has a hover effect: card lifts up 8px, border glows with agent's color, and a subtle radial gradient appears behind the avatar
+
+FEATURES GRID SECTION:
+- Section title: "Enterprise-Grade Capabilities"
+- 8 feature cards in a 4x2 grid:
+  1. "Real-Time Collaboration" — "Watch agents think, communicate, and build together in real-time"
+  2. "Visual Workflow Builder" — "Drag-and-drop workflow editor to design custom agent pipelines"
+  3. "Multi-LLM Support" — "Connect OpenAI, Anthropic, Google, or local models"
+  4. "Version Control" — "Every agent output is versioned and auditable"
+  5. "Human-in-the-Loop" — "Approve, edit, or redirect agent work at any checkpoint"
+  6. "Project Templates" — "Pre-built templates for research papers, web apps, marketing campaigns"
+  7. "Analytics Dashboard" — "Track token usage, completion rates, agent performance metrics"
+  8. "API Access" — "RESTful API to integrate NEXUS into your existing workflows"
+
+PRICING SECTION:
+- 3 pricing tiers displayed as glassmorphism cards:
+  1. STARTER — $0/month — "5 projects/month, 3 agents per project, GPT-3.5 Turbo, Community support"
+  2. PRO (highlighted/recommended with gradient border) — $49/month — "Unlimited projects, All 6 agents, GPT-4 + Claude, Priority support, API access"
+  3. ENTERPRISE — Custom — "Custom agents, On-prem deployment, SSO, Dedicated support, SLA"
+- Each card has a "Get Started" button
+
+FOOTER:
+- Dark footer with logo, navigation links, social icons, newsletter signup input field
+- "Built with ❤️ and AI" tagline
+- Copyright notice
+
+--- PAGE 2: AUTH PAGES (/login, /signup) ---
+- Centered auth card with glassmorphism effect on a dark background with subtle particles
+- Logo at top of card
+- Email + Password fields with proper validation and error states
+- "Sign in with Google" button with Google icon
+- Toggle between login and signup
+- "Forgot Password" link that sends reset email
+- After successful auth, redirect to /dashboard
+- Use Supabase Auth for all authentication logic
+
+--- PAGE 3: DASHBOARD (/dashboard) ---
+The main command center. This must feel like a futuristic mission control.
+
+LEFT SIDEBAR (fixed, 280px wide, collapsible to 64px icon-only mode):
+- Logo at top: "NEXUS" in gradient text with a small animated pulse dot
+- Navigation items with icons and active state (indigo left border + bg highlight):
+  • Dashboard (home icon)
+  • New Mission (plus-circle icon)
+  • My Projects (folder icon)
+  • Agent Studio (cpu icon)
+  • Workflow Builder (git-branch icon)
+  • Analytics (bar-chart icon)
+  • Settings (gear icon)
+- Bottom of sidebar: User avatar, name, email, and logout button
+- Collapse/expand toggle button at bottom
+
+TOP BAR:
+- Breadcrumb navigation showing current location
+- Search bar with Cmd+K shortcut (opens a command palette modal)
+- Notification bell icon with unread count badge
+- Theme toggle (dark/darker mode variants)
+
+DASHBOARD MAIN CONTENT:
+Section 1 — Stats Overview (4 metric cards in a row):
+  Card 1: "Active Missions" — Large number with up/down trend indicator and sparkline chart
+  Card 2: "Agents Running" — Shows count with animated activity dots
+  Card 3: "Tasks Completed Today" — Number with percentage change from yesterday
+  Card 4: "Tokens Used" — Token count with usage bar showing limit
+
+Section 2 — Active Missions Feed (takes 60% width):
+  A live feed showing currently running missions:
+  - Each mission card shows: Mission name, status badge (Running/Paused/Completed/Failed), progress bar with percentage, list of assigned agents with their colored avatar dots, elapsed time, and a "View" button
+  - New activity items slide in with animation
+  - Status badges are color-coded: Running=cyan pulse, Completed=green, Failed=red, Paused=amber
+
+Section 3 — Agent Activity Timeline (takes 40% width, right side):
+  A vertical timeline showing real-time agent actions:
+  - Each entry: timestamp, agent name with colored dot, action description
+  - Example entries:
+    "[10:23:45] 🔍 Researcher Agent: Searching 'latest AI framework benchmarks 2025'..."
+    "[10:23:52] 🔍 Researcher Agent: Found 12 relevant sources. Compiling brief..."
+    "[10:24:01] ✍️ Writer Agent: Received research brief. Beginning draft outline..."
+    "[10:24:15] 💻 Coder Agent: Analyzing code requirements from project spec..."
+  - Auto-scrolls to newest entry
+  - Entries fade in with slide-up animation
+
+Section 4 — Recent Projects Grid:
+  Grid of recent project cards showing: project name, creation date, status, agent team used, completion percentage, and quick action buttons (Open, Delete, Duplicate)
+
+--- PAGE 4: NEW MISSION (/dashboard/new-mission) ---
+This is the core feature — creating a new multi-agent project.
+
+Step 1 — Mission Briefing:
+  - Large text area (min 200px height) with placeholder: "Describe your project in detail. What do you want your AI team to accomplish?"
+  - Example prompt suggestions shown as clickable chips below:
+    "Build a complete blog post about AI trends in 2025"
+    "Create a Python web scraper with documentation"
+    "Research competitors and create a market analysis report"
+    "Design and code a landing page for a SaaS product"
+  - "Project Name" input field
+  - "Category" dropdown: Research, Content Creation, Software Development, Data Analysis, Marketing, Custom
+  - "Priority" selector: Low, Medium, High, Critical (with colored indicators)
+
+Step 2 — Team Assembly:
+  - Header: "Select Your Agent Crew"
+  - 6 agent cards (same as landing page showcase) but now with toggles to enable/disable each agent
+  - When an agent is selected, it shows a configuration panel:
+    • Model selection dropdown: GPT-4, GPT-4 Turbo, GPT-3.5 Turbo, Claude 3 Opus, Claude 3 Sonnet
+    • Temperature slider (0.0 to 1.0)
+    • Max tokens input
+    • Custom system prompt textarea (pre-filled with agent's default prompt but editable)
+    • Tools/capabilities checkboxes: Web Search, Code Execution, File Reading, API Calls, Image Generation
+  - "Recommended Team" button that auto-selects optimal agents based on mission description using AI
+  - Show total estimated token cost at the bottom
+
+Step 3 — Workflow Configuration:
+  - An interactive visual workflow builder using ReactFlow:
+    • Pre-populated with selected agents as nodes
+    • Users can drag to reorder the execution sequence
+    • Connect agents with edges to define handoff patterns:
+      — Sequential: Agent A → Agent B → Agent C
+      — Parallel: Agent A → (Agent B + Agent C simultaneously) → Agent D
+      — Iterative: Agent A → Agent B → Review Node → (back to Agent A if rejected)
+    • Special node types:
+      — START node (green circle)
+      — END node (red circle)
+      — Human Review checkpoint node (amber diamond shape)
+      — Conditional branch node (if/else logic)
+    • Minimap in bottom-right corner
+    • Zoom controls
+    • Auto-layout button to organize nodes neatly
+
+Step 4 — Review & Launch:
+  - Summary card showing: Mission name, description, selected agents, workflow diagram thumbnail, estimated cost, estimated completion time
+  - "Launch Mission" button (large, with rocket icon, gradient background, and hover animation)
+  - "Save as Template" checkbox option
+  - On launch: show a cinematic launch animation (countdown 3-2-1 with particle burst), then redirect to mission monitor
+
+--- PAGE 5: MISSION MONITOR (/dashboard/mission/[id]) ---
+The real-time mission observation deck. This is the most important page.
+
+TOP SECTION — Mission Header:
+  - Mission name, status badge, progress bar, elapsed time counter (live updating), and action buttons: Pause, Resume, Abort, Export Results
+
+MAIN SECTION — Split into 3 columns:
+
+LEFT COLUMN (25%) — Agent Status Panel:
+  - Vertical list of all agents in this mission
+  - Each agent card shows:
+    • Agent avatar with colored ring (pulsing animation when active)
+    • Agent name and role
+    • Current status: Idle (gray), Thinking (amber pulse), Working (cyan pulse), Waiting (yellow), Done (green), Error (red)
+    • Current task description
+    • Token usage progress bar
+    • Small activity sparkline showing work intensity over time
+
+CENTER COLUMN (50%) — Live Output Feed:
+  This is the main content area showing what agents are producing IN REAL-TIME:
+  - Messages appear as chat-like bubbles, each styled with the agent's color:
+    • Agent avatar and name at top of each message
+    • Timestamp
+    • Message content rendered as rich markdown (supporting headings, bold, italic, code blocks with syntax highlighting, lists, links, tables, images)
+    • For code outputs: use a proper code editor component with syntax highlighting (like Monaco editor or Prism.js), with a "Copy Code" button
+    • For research outputs: show source links as clickable cards with favicon, title, and snippet
+    • Messages stream in word-by-word with a typing animation effect
+  - Agents can "reply" to each other, shown as threaded conversations with indent
+  - Human intervention points show as highlighted amber blocks: "⚠️ Agent X requests your review. [Approve] [Edit] [Reject]"
+  - User can type messages to intervene/redirect agents at any time via an input bar at the bottom
+  - Filter buttons at top to show: All agents, specific agent only, or only "key decisions"
+
+RIGHT COLUMN (25%) — Mission Intelligence Panel:
+  Tab 1 — Task Board (Kanban style):
+    - 4 columns: To Do, In Progress, Review, Done
+    - Each task card shows: task name, assigned agent, priority indicator, estimated time
+    - Tasks move between columns automatically as agents work
+    - Drag-and-drop to manually reorder or reassign
+
+  Tab 2 — Workflow Visualization:
+    - Live ReactFlow graph showing the workflow
+    - Currently active nodes have a glowing pulse animation
+    - Completed nodes have a green checkmark overlay
+    - Failed nodes have a red X overlay
+    - Edges animate with flowing particles showing data transfer direction
+
+  Tab 3 — Metrics:
+    - Real-time charts:
+      • Token usage over time (line chart, per agent)
+      • Task completion rate (donut chart)
+      • Agent communication frequency (bar chart)
+      • Quality score trend (line chart)
+
+  Tab 4 — Files & Artifacts:
+    - List of all files generated by agents
+    - File types: .md, .py, .js, .tsx, .json, .csv, .html, .css
+    - Preview files inline (code with syntax highlighting, markdown rendered)
+    - Download individual files or "Download All as ZIP" button
+
+BOTTOM BAR — Human Command Input:
+  - Text input: "Send a message to your agents..."
+  - Dropdown to select target: "All Agents" or specific agent
+  - Send button
+  - Voice input button (bonus feature)
+
+--- PAGE 6: AGENT STUDIO (/dashboard/agent-studio) ---
+Where users can create and customize their own AI agents.
+
+- Grid of existing agents (the 6 default ones + user-created ones)
+- "Create New Agent" button opens a creation form:
+  - Agent Name input
+  - Agent Role description
+  - Avatar/Color picker (color wheel)
+  - Base Model selection dropdown
+  - System Prompt textarea (large, with syntax highlighting for prompt engineering)
+  - Temperature, Max Tokens, Top P sliders
+  - Tools/Capabilities multiselect: Web Search, Code Execution, File I/O, API Calls, Image Generation, Database Query
+  - Knowledge Base: File upload area to add documents the agent can reference (drag & drop zone)
+  - Test Area: A mini chat interface to test the agent before saving
+  - Save Agent button
+
+--- PAGE 7: WORKFLOW BUILDER (/dashboard/workflow-builder) ---
+A dedicated full-page visual workflow editor:
+  - Full-screen ReactFlow canvas
+  - Left sidebar with draggable node types:
+    • Agent nodes (one for each available agent)
+    • Logic nodes: If/Else, Loop, Parallel Split, Parallel Join
+    • Utility nodes: Delay, Human Review, Notification, API Call, File Output
+    • Start and End nodes
+  - When you drag a node onto canvas, it becomes a styled card
+  - Connect nodes by dragging edges between ports
+  - Click a node to open its configuration panel on the right side
+  - Top toolbar: Save Workflow, Load Workflow, Export as JSON, Auto-Layout, Undo, Redo, Zoom controls
+  - Saved workflows appear in a dropdown and can be used when creating new missions
+  - Template gallery: pre-made workflows for common use cases
+
+--- PAGE 8: ANALYTICS (/dashboard/analytics) ---
+Comprehensive analytics dashboard:
+
+Row 1 — Summary Cards:
+  - Total Missions (all time)
+  - Total Tasks Completed
+  - Total Tokens Consumed (with cost in USD)
+  - Average Mission Duration
+  - Success Rate percentage
+
+Row 2 — Charts (2 columns):
+  Left: "Mission Activity" — Area chart showing missions created per day over last 30 days
+  Right: "Token Usage by Agent" — Stacked bar chart showing which agents consume the most tokens
+
+Row 3 — Charts (2 columns):
+  Left: "Agent Performance Leaderboard" — Horizontal bar chart ranking agents by task completion quality score
+  Right: "Project Category Distribution" — Donut chart showing breakdown by category
+
+Row 4 — Table:
+  "Mission History" — Full-featured data table with:
+  - Columns: Mission Name, Category, Status, Agents Used, Duration, Tokens, Cost, Created Date, Actions
+  - Sortable columns
+  - Search/filter functionality
+  - Pagination (10/25/50 per page)
+  - Row click opens mission details
+  - Export to CSV button
+
+--- PAGE 9: SETTINGS (/dashboard/settings) ---
+Tabbed settings page:
+
+Tab 1 — Profile:
+  - Avatar upload
+  - Name, email (read-only), bio
+  - Save button
+
+Tab 2 — API Keys:
+  - Input fields for: OpenAI API Key, Anthropic API Key, Google AI API Key
+  - Keys are masked by default with show/hide toggle
+  - Test Connection button for each key
+  - Keys stored securely in Supabase with encryption
+
+Tab 3 — Preferences:
+  - Default model selection
+  - Default temperature
+  - Notification preferences (email, in-app) with toggles
+  - Auto-save interval
+  - Language preference
+
+Tab 4 — Billing:
+  - Current plan display
+  - Usage meters (projects, tokens)
+  - Upgrade/downgrade buttons
+  - Billing history table
+
+Tab 5 — Team (Pro/Enterprise):
+  - Invite team members by email
+  - Role assignment: Admin, Editor, Viewer
+  - Active members list with status
+
+=== COMMAND PALETTE (Cmd+K) ===
+A floating modal search interface (like VS Code or Linear):
+- Opens with Cmd+K or Ctrl+K keyboard shortcut
+- Search input at top with live filtering
+- Sections: Recent Projects, Quick Actions, Navigation, Agents
+- Quick Actions: "New Mission", "View Analytics", "Create Agent", "Open Settings"
+- Navigate to any page by typing
+- Smooth open/close animation with backdrop blur
+
+=== NOTIFICATION SYSTEM ===
+- Toast notifications appear in bottom-right corner for:
+  • Agent completed a task
+  • Mission completed
+  • Agent needs human input
+  • Error occurred
+- Bell icon in top bar opens a notification dropdown panel listing all notifications with timestamps
+- Unread notifications have a cyan dot indicator
+- "Mark all as read" button
+
+=== RESPONSIVE DESIGN ===
+- Fully responsive: Desktop (1440px+), Tablet (768px-1439px), Mobile (320px-767px)
+- Sidebar collapses to bottom navigation on mobile
+- Cards stack vertically on mobile
+- Workflow builder shows a simplified list view on mobile with a note to use desktop for full experience
+- All modals become full-screen sheets on mobile
+
+=== ANIMATIONS & MICRO-INTERACTIONS ===
+- Page transitions: Smooth fade + slide animations between routes using Framer Motion
+- Button hover: Scale up 1.02 with glow intensification
+- Card hover: Translate Y -4px with shadow increase
+- Loading states: Skeleton shimmer animations matching card shapes
+- Agent status transitions: Smooth color crossfades
+- Progress bars: Smooth width transitions with gradient shimmer
+- Number counters: Animated counting up effect when metrics load
+- Scroll animations: Elements fade in and slide up when entering viewport
+- Particle effects on mission launch
+- Confetti animation when a mission completes successfully
+
+=== REAL-TIME SIMULATION ENGINE ===
+Since we need the app to feel alive and dynamic even without a real Python backend connected, implement a sophisticated simulation system:
+
+Create a file: lib/simulation-engine.ts that:
+1. When a mission is launched, it starts a simulation loop
+2. Every 2-5 seconds (randomized), it generates a realistic agent activity message
+3. Messages follow logical project progression:
+   - Researcher starts first: searches, finds sources, compiles brief
+   - Writer receives brief, creates outline, writes sections
+   - Coder analyzes requirements, writes code, runs tests
+   - Analyst processes data, creates charts description
+   - QA reviews all outputs, provides feedback
+   - Agents can "reply" to each other naturally
+4. Progress bar increments realistically
+5. Tasks move through kanban board automatically
+6. Token counters increment
+7. Occasionally (10% chance), an agent "requests human review" triggering the intervention UI
+8. Mission completes after simulating all workflow stages (takes about 3-5 minutes of simulated time)
+9. Use realistic, domain-specific messages. For example:
+   - Researcher: "I found 23 relevant academic papers on transformer architectures. The most cited work is 'Attention Is All You Need' (Vaswani et al., 2017) with 89,000 citations. I'm now cross-referencing with recent 2025 publications..."
+   - Writer: "Based on the research brief, I'm structuring the article into 5 main sections: 1) Introduction to Multi-Agent Systems, 2) Architecture Patterns, 3) Real-World Applications, 4) Implementation Guide, 5) Future Outlook. Beginning with the introduction now..."
+   - Coder: "Initializing Python project structure. Creating virtual environment. Installing dependencies: crewai==0.28.0, langchain==0.1.9, fastapi==0.109.0. Setting up project scaffolding..."
+
+Store simulation state in Zustand so it persists across page navigations.
+
+=== SAMPLE DATA ===
+Pre-populate the app with sample data so it looks rich on first load:
+- 3 sample completed missions with full output history
+- 2 sample in-progress missions (running simulation)
+- 1 sample failed mission with error details
+- Analytics data for the last 30 days
+- Agent performance scores
+
+=== ACCESSIBILITY ===
+- All interactive elements have focus states with visible outlines
+- Proper ARIA labels on all buttons and navigation
+- Keyboard navigable (Tab, Enter, Escape)
+- Color contrast meets WCAG 2.1 AA standards
+- Screen reader friendly alt text on images and icons
+
+=== PERFORMANCE ===
+- Lazy load heavy components (ReactFlow, charts) with dynamic imports
+- Use Next.js Image component for optimized images
+- Implement virtual scrolling for long lists (agent activity feed)
+- Minimize bundle size with tree shaking
+- Use React.memo on expensive components
+
+Build this application with meticulous attention to detail. Every interaction should feel polished. The design should make users feel like they're operating a high-tech AI command center from the future. Make it the most beautiful, functional multi-agent AI platform dashboard anyone has ever seen.

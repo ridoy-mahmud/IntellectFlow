@@ -1,0 +1,19 @@
+packages:
+  "framer-motion": "For cinematic UI animations, page transitions, and staggered reveals"
+  "recharts": "For dashboard analytics, metrics, and activity charts"
+  "lucide-react": "For crisp, modern icons across the dashboard"
+  "date-fns": "For formatting timestamps in activity feeds and mission logs"
+  "clsx": "For dynamic class merging"
+  "tailwind-merge": "For resolving Tailwind class conflicts"
+
+images:
+  - path: "artifacts/nexus-ai/public/images/dashboard-preview.png"
+    description: "A highly futuristic glowing dark mode web dashboard for AI agent mission control, floating in isometric perspective, deep space colors, glowing cyan and purple accents, complex UI elements, glassmorphism."
+    aspect_ratio: "16:9"
+  - path: "artifacts/nexus-ai/public/images/space-bg.png"
+    description: "Deep space cinematic background, abstract nebula, glowing electric purple and cyan dust, highly detailed, stars, 8k resolution, perfect for a dark mode landing page."
+    aspect_ratio: "16:9"
+
+notes:
+  - Using generated Orval React Query hooks from @workspace/api-client-react as specified in the implementation notes.
+  - Mock data is injected into UI layers for empty states to ensure the platform feels alive even if the backend database is empty.

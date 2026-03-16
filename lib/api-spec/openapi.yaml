@@ -1,0 +1,483 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: IntellectFlow - Multi-Agent Orchestration Platform API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: missions
+    description: Mission management
+  - name: agents
+    description: Agent management
+  - name: activity
+    description: Agent activity feed
+  - name: analytics
+    description: Analytics and metrics
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /missions:
+    get:
+      operationId: listMissions
+      tags: [missions]
+      summary: List all missions
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [running, paused, completed, failed, all]
+          required: false
+        - name: limit
+          in: query
+          schema:
+            type: number
+          required: false
+      responses:
+        "200":
+          description: List of missions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Mission"
+    post:
+      operationId: createMission
+      tags: [missions]
+      summary: Create a new mission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMissionInput"
+      responses:
+        "201":
+          description: Mission created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mission"
+
+  /missions/{id}:
+    get:
+      operationId: getMission
+      tags: [missions]
+      summary: Get a mission by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Mission details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mission"
+        "404":
+          description: Mission not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      operationId: updateMission
+      tags: [missions]
+      summary: Update a mission
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateMissionInput"
+      responses:
+        "200":
+          description: Mission updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mission"
+    delete:
+      operationId: deleteMission
+      tags: [missions]
+      summary: Delete a mission
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Mission deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /missions/{id}/launch:
+    post:
+      operationId: launchMission
+      tags: [missions]
+      summary: Launch a mission
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Mission launched
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mission"
+
+  /missions/{id}/pause:
+    post:
+      operationId: pauseMission
+      tags: [missions]
+      summary: Pause a mission
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Mission paused
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mission"
+
+  /missions/{id}/resume:
+    post:
+      operationId: resumeMission
+      tags: [missions]
+      summary: Resume a mission
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Mission resumed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mission"
+
+  /missions/{id}/abort:
+    post:
+      operationId: abortMission
+      tags: [missions]
+      summary: Abort a mission
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Mission aborted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Mission"
+
+  /missions/{id}/activity:
+    get:
+      operationId: getMissionActivity
+      tags: [activity]
+      summary: Get activity logs for a mission
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+        - name: limit
+          in: query
+          schema:
+            type: number
+          required: false
+      responses:
+        "200":
+          description: Activity logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityLog"
+
+  /activity/recent:
+    get:
+      operationId: getRecentActivity
+      tags: [activity]
+      summary: Get recent activity across all missions
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: number
+          required: false
+      responses:
+        "200":
+          description: Recent activity
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityLog"
+
+  /analytics/overview:
+    get:
+      operationId: getAnalyticsOverview
+      tags: [analytics]
+      summary: Get analytics overview metrics
+      responses:
+        "200":
+          description: Analytics overview
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalyticsOverview"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required:
+        - error
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - success
+
+    AgentConfig:
+      type: object
+      properties:
+        agentType:
+          type: string
+          enum: [researcher, writer, coder, analyst, designer, qa_tester]
+        model:
+          type: string
+        temperature:
+          type: number
+        maxTokens:
+          type: number
+        systemPrompt:
+          type: string
+        tools:
+          type: array
+          items:
+            type: string
+        enabled:
+          type: boolean
+      required:
+        - agentType
+        - enabled
+
+    Mission:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [draft, running, paused, completed, failed, aborted]
+        category:
+          type: string
+        priority:
+          type: string
+          enum: [low, medium, high, critical]
+        progress:
+          type: number
+        agents:
+          type: array
+          items:
+            $ref: "#/components/schemas/AgentConfig"
+        estimatedCost:
+          type: number
+        tokensUsed:
+          type: number
+        elapsedSeconds:
+          type: number
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+        launchedAt:
+          type: string
+          nullable: true
+        completedAt:
+          type: string
+          nullable: true
+      required:
+        - id
+        - name
+        - description
+        - status
+        - category
+        - priority
+        - progress
+        - agents
+        - createdAt
+        - updatedAt
+
+    CreateMissionInput:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        priority:
+          type: string
+          enum: [low, medium, high, critical]
+        agents:
+          type: array
+          items:
+            $ref: "#/components/schemas/AgentConfig"
+      required:
+        - name
+        - description
+        - category
+        - priority
+        - agents
+
+    UpdateMissionInput:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [draft, running, paused, completed, failed, aborted]
+        progress:
+          type: number
+        agents:
+          type: array
+          items:
+            $ref: "#/components/schemas/AgentConfig"
+
+    ActivityLog:
+      type: object
+      properties:
+        id:
+          type: number
+        missionId:
+          type: number
+        agentType:
+          type: string
+        action:
+          type: string
+        details:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+      required:
+        - id
+        - missionId
+        - agentType
+        - action
+        - createdAt
+
+    AnalyticsOverview:
+      type: object
+      properties:
+        activeMissions:
+          type: number
+        completedMissions:
+          type: number
+        failedMissions:
+          type: number
+        totalMissions:
+          type: number
+        agentsRunning:
+          type: number
+        tasksCompletedToday:
+          type: number
+        tasksCompletedYesterday:
+          type: number
+        tokensUsedToday:
+          type: number
+        tokensLimit:
+          type: number
+        recentActivity:
+          type: array
+          items:
+            $ref: "#/components/schemas/ActivityLog"
+      required:
+        - activeMissions
+        - completedMissions
+        - failedMissions
+        - totalMissions
+        - agentsRunning
+        - tasksCompletedToday
+        - tasksCompletedYesterday
+        - tokensUsedToday
+        - tokensLimit
+        - recentActivity
