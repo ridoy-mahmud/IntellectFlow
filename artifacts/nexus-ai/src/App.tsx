@@ -12,12 +12,15 @@ import Analytics from "@/pages/Analytics";
 import Settings from "@/pages/Settings";
 import AgentStudio from "@/pages/AgentStudio";
 import Workflows from "@/pages/Workflows";
+import Documentation from "@/pages/Documentation";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 1,
-      staleTime: 5000,
+      staleTime: 30000,
+      gcTime: 300000,
+      refetchOnWindowFocus: false,
     },
   },
 });
@@ -34,6 +37,7 @@ function Router() {
       <Route path="/dashboard/settings" component={Settings} />
       <Route path="/dashboard/agents" component={AgentStudio} />
       <Route path="/dashboard/workflows" component={Workflows} />
+      <Route path="/dashboard/documentation" component={Documentation} />
       <Route component={NotFound} />
     </Switch>
   );
